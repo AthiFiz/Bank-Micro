@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: "configserver"
+
+  profiles:
+    active: native
+
+#  test with - http://localhost:8071/accounts/prod, http://localhost:8071/accounts/default
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: "classpath:/config"
+
+
+
+server:
+  port: 8071

@@ -1,0 +1,11 @@
+build:
+  version: "5.0"
+
+loans:
+  message: "Welcome to Test Bankk loans related prod APIs "
+  contactDetails:
+    name: "Rob  - Product Owner"
+    email: "rob@win.com"
+  onCallSupport:
+    - (453) 392-4829
+    - (236) 203-0384

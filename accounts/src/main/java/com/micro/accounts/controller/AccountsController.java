@@ -1,6 +1,7 @@
 package com.micro.accounts.controller;
 
 import com.micro.accounts.constants.AccountsConstants;
+import com.micro.accounts.dto.AccountsContactInfoDto;
 import com.micro.accounts.dto.CustomerDto;
 import com.micro.accounts.dto.ErrorResponseDto;
 import com.micro.accounts.dto.ResponseDto;
@@ -13,7 +14,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +29,26 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
 @Validated  // On method parameters to validate incoming data.
 public class AccountsController {
 
-    private IAccountService iAccountService;
+    private final IAccountService iAccountService;
+
+//    here, the autowired is optional since only one constructor method is given
+    @Autowired
+    public AccountsController(IAccountService iAccountService){
+        this.iAccountService = iAccountService;
+    }
+
+    //    this is configure the properties. the value is inside the application.yml file
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private AccountsContactInfoDto accountsContactInfoDto;
 
     @Operation(
             summary = "Create Account REST API",
@@ -111,8 +129,26 @@ public class AccountsController {
         }
     }
 
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
 
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+    }
 
-
+//        Recommended approach to configure properties
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfor(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
+    }
 
 }

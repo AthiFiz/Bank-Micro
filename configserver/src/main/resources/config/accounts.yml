@@ -1,0 +1,13 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Test Bank accounts related local APIs "
+  contactDetails:
+    name: "John Snow - Developer"
+    email: "john@winterfell.com"
+  onCallSupport:
+    - (000) 123-1234
+    - (000) 321-1345
+
+
