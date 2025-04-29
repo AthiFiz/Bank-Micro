@@ -3,17 +3,48 @@ spring:
     name: "configserver"
 
   profiles:
-    active: native
+#    active: native
+    active: git
 
 #  test with - http://localhost:8071/accounts/prod, http://localhost:8071/accounts/default
 
   cloud:
     config:
       server:
-        native:
-          search-locations: "classpath:/config"
+#        native:
+#          search-locations: "classpath:/config"
+          git:
+            uri: "https://github.com/AthiFiz/bank-configurations.git"
+            default-label: main
+            timeout: 5
+            clone-on-start: true
+            force-pull: true
 
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#        localost:8071/actuator/health
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+encrypt:
+  key: "SDFH53457HBVDG3W2532GFD"
 
 server:
   port: 8071

@@ -7,7 +7,7 @@ spring:
 
   #Activates a profile by default
   profiles:
-    active: "prod"
+    active: prod
 
   datasource:
     url: jdbc:h2:mem:testdb  #  Uses an in-memory H2 database named testdb
@@ -26,3 +26,15 @@ spring:
   config:
 #    optional - even if configserver is not connected, start the microservice
     import: "optional:configserver:http://localhost:8071/"
+
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # telling enable and expose all management endpoints supported by actuator(one of them is refresh related endpoints)
