@@ -89,7 +89,18 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 
-<!--		<dependency>-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+
+		<!--		<dependency>-->
 <!--			<groupId>org.springframework.cloud</groupId>-->
 <!--			<artifactId>spring-cloud-starter-bus-amqp</artifactId>-->
 <!--		</dependency>-->
@@ -143,7 +154,7 @@
 				<version>3.4.5</version>
 				<configuration>
 					<to>
-						<image>athifizdoc/${project.artifactId}:0.3</image>
+						<image>athifizdoc/${project.artifactId}:0.5</image>
 					</to>
 				</configuration>
 			</plugin>

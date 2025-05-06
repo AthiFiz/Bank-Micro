@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: "gatewayserver"
+
+#  Connect with the dicovery server(eureka) and locate the details about the all mivroservices
+#  and forward the traffic from external clients to the individual microservoce
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+
+#  Gateway server connects with configuration server and connect in startup
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#  Enabling gateway related endpoints inside the actuator
+  endpoint:
+    gateway:
+      access: unrestricted
+
+  info:
+    env:
+      enabled: true
+
+
+#Defined in githun config
+
+#eureka:
+#  instance:
+#    preferIpAddress: true
+#  client:
+#    fetchRegistry: true
+#    registerWithEureka: true
+#    serviceUrl:
+#      defaultZone: http://localhost:8070/eureka/
+
+
+#server:
+#  port: 8072
+
+logging:
+  level:
+    com:
+      micro:
+        gatewayserver: DEBUG
