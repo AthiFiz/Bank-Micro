@@ -11,9 +11,21 @@ spring:
           enabled: false
           lowerCaseServiceId: true
 
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 10s
+
 #  Gateway server connects with configuration server and connect in startup
   config:
     import: "optional:configserver:http://localhost:8071/"
+
+
+  data:
+    redis:
+      connect-timeout: 2s
+      host: localhost
+      port: 6379
+      timeout: 1s
 
 management:
   endpoints:
@@ -50,3 +62,17 @@ logging:
     com:
       micro:
         gatewayserver: DEBUG
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationOpenState: 10000
+
+resilience4j:
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 4s

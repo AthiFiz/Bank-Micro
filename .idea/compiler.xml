@@ -7,7 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="configserver" />
       </profile>
       <profile name="Annotation profile for cards" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -23,6 +22,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="card" target="17" />
+      <module name="configserver" target="17" />
       <module name="loan" target="17" />
       <module name="loans" target="17" />
     </bytecodeTargetLevel>

@@ -5,6 +5,11 @@ spring:
   application:
     name: "accounts"
 
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
   #Activates a profile by default
   profiles:
     active: prod
@@ -70,3 +75,48 @@ info:
     name: "accounts"
     description: "Accounts application of the Bank"
     version: "0.4"
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationOpenState: 10000
+
+resilience4j.retry:
+  configs:
+    default:
+      maxAttempts: 3
+      waitDuration: 500
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      ignoreExceptions:
+        - java.lang.NullPointerException
+#      retryExceptions:
+#        - java.lang.TimeoutException   // If this configured, only the timeoutexception will be retired
+
+logging:
+  level:
+    com:
+      micro:
+        accounts: DEBUG
+
+resilience4j.ratelimiter:
+  configs:
+    default:
+      timeoutDuration: 1000
+      limitRefreshPeriod: 5000
+      limitForPeriod: 1
+
+#    highThroughput: # A custom config profile
+#      timeoutDuration: 500
+#      limitRefreshPeriod: 1000
+#      limitForPeriod: 10
+#
+#  instances:
+#    accountServiceLimiter1:
+#      baseConfig: default
+#
+#    accountServiceLimiter2:
+#      baseConfig: highThroughput

@@ -7,7 +7,9 @@ import com.micro.loans.dto.ResponseDto;
 import com.micro.loans.service.ILoanService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -17,10 +19,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
 public class LoansController {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoansController.class);
+
 
     private ILoanService iLoanService;
 
@@ -103,6 +109,7 @@ public class LoansController {
     //        Recommended approach to configure properties
     @GetMapping("/contact-info")
     public ResponseEntity<LoansContactInfoDto> getContactInfor(){
+        logger.debug("Invoked get contact-inf");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(loansContactInfoDto);

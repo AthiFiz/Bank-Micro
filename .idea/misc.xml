@@ -17,6 +17,7 @@
       <set>
         <option value="$PROJECT_DIR$/loans/loans/pom.xml" />
         <option value="$PROJECT_DIR$/loans/pom.xml" />
+        <option value="$PROJECT_DIR$/../configserver/pom.xml" />
       </set>
     </option>
   </component>
