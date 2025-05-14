@@ -61,6 +61,10 @@ management:
     liveness-state:
       enabled: true
 
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
 eureka:
   instance:
     preferIpAddress: true
